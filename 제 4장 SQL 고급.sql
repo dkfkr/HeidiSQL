@@ -232,12 +232,10 @@ SELECT SUM(sale) `매출합`  FROM `sales` AS a JOIN `member` AS b ON a.uid = b.
 GROUP BY `year`;
 
 #실습 4-15
-SELECT b.NAME, c.name, b.pos, a.year, SUM(a.sale) AS `매출합`
-FROM sales AS a
-JOIN member AS b ON a.uid = b.uid
-JOIN department AS c ON b.dep = c.depNo
-WHERE a.year = 2019 AND a.sale >= 50000
-GROUP BY b.NAME, c.name, b.pos, a.year
-HAVING SUM(a.sale) >= 100000
-ORDER BY `매출합` ASC;
-
+SELECT a.NAME, b.name
+FROM `member` AS a
+JOIN department AS b ON a.dep = b.depNo
+JOIN sales AS c ON a.uid = c.uid
+WHERE c.`year` = 2019 AND c.sale >= 50000
+GROUP BY a.NAME, b.name
+HAVING SUM(c.sale) >= 100000;
