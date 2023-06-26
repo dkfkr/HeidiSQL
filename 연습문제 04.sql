@@ -292,4 +292,4 @@ WHERE `name` = '김연아';
 SELECT 
 SUM(saleprice) AS `총 매출`
 FROM `order`
-WHERE custid = ( SELECT custid FROM customer WHERE NAME = '김연아'):
+WHERE custid = ( SELECT custid FROM customer WHERE NAME = '김연아'):erd2erd2

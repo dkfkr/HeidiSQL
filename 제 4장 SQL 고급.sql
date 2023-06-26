@@ -41,11 +41,11 @@ INSERT INTO `Member` VALUES ('a103', '김춘추', '010-1234-1003', '사원', 101
 INSERT INTO `Member` VALUES ('a104', '장보고', '010-1234-1004', '대리', 102, NOW());
 INSERT INTO `Member` VALUES ('a105', '강감찬', '010-1234-1005', '과장', 102, NOW());
 INSERT INTO `Member` VALUES ('a106', '이성계', '010-1234-1006', '차장', 103, NOW());
-INSERT INTO `Member` VALUES ('a107', '정철', '010-1234-1006', '차장', 103, NOW());
-INSERT INTO `Member` VALUES ('a108', '이순신', '010-1234-1006', '차장', 103, NOW());
-INSERT INTO `Member` VALUES ('a109', '허균', '010-1234-1006', '차장', 103, NOW());
-INSERT INTO `Member` VALUES ('a110', '정약용', '010-1234-1006', '차장', 103, NOW());
-INSERT INTO `Member` VALUES ('a111', '박지원', '010-1234-1006', '차장', 103, NOW());
+INSERT INTO `Member` VALUES ('a107', '정철', '010-1234-1007', '차장', 103, NOW());
+INSERT INTO `Member` VALUES ('a108', '이순신', '010-1234-1008', '차장', 103, NOW());
+INSERT INTO `Member` VALUES ('a109', '허균', '010-1234-1009', '차장', 103, NOW());
+INSERT INTO `Member` VALUES ('a110', '정약용', '010-1234-1010', '차장', 103, NOW());
+INSERT INTO `Member` VALUES ('a111', '박지원', '010-1234-1011', '차장', 103, NOW());
 
 INSERT INTO `Sales` (`uid`, `year`, `month`, `sale`) VALUES ('a101', '2018', 1, '98100');
 INSERT INTO `Sales` (`uid`, `year`, `month`, `sale`) VALUES ('a102', '2018', 1, '136000');
@@ -77,6 +77,7 @@ INSERT INTO `Sales` (`uid`, `year`, `month`, `sale`) VALUES ('a103', '2020', 2, 
 INSERT INTO `Sales` (`uid`, `year`, `month`, `sale`) VALUES ('a104', '2020', 2, '84000');
 INSERT INTO `Sales` (`uid`, `year`, `month`, `sale`) VALUES ('a105', '2020', 2, '180000');
 INSERT INTO `Sales` (`uid`, `year`, `month`, `sale`) VALUES ('a108', '2020', 2, '76000');
+
 
 #실습 4-3
 SELECT * FROM `Member` WHERE `name`='김유신';
