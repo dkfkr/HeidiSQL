@@ -45,12 +45,12 @@ INSERT INTO student VALUES ("20220521", "송상현", "010-1234-1006", 1, "부산
 INSERT INTO lecture VALUES ("159", "인지행동심리학",    3, 40, "본304");
 INSERT INTO lecture VALUES ("167", "운영체제론 ",       3, 25, "본B05");
 INSERT INTO lecture VALUES ("234", "중급 영문법",       3, 20, "본201");
-INSERT INTO lecture VALUES ("239", "세법개론",          3, 40, "본204");
+INSERT INTO lecture VALUES ("239", "세법개론",          3, 40, "본204")edr3;
 INSERT INTO lecture VALUES ("248", "빅데이터 개론",     3, 20, "본B01");
 INSERT INTO lecture VALUES ("253", "컴퓨팅사고와 코딩", 2, 10, "본B02");
 INSERT INTO lecture VALUES ("349", "사회복지 마케팅",   2, 50, "본301");
 
-INSERT INTO register (regStdNo,regLecNo) VALUES ("20201126", 234);
+INSERT INTO register (regcollegeStdNo,regLecNo) VALUES ("20201126", 234);
 INSERT INTO register (regStdNo,regLecNo) VALUES ("20201026", 248);
 INSERT INTO register (regStdNo,regLecNo) VALUES ("20201016", 253);
 INSERT INTO register (regStdNo,regLecNo) VALUES ("20201126", 239);
