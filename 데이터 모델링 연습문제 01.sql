@@ -135,3 +135,4 @@ FROM register AS a
 JOIN students AS b
 ON a.stdNo = b.stdNo
 WHERE stdName = "정우성"; 
+erd5
