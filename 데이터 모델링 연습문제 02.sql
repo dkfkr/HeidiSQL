@@ -202,3 +202,6 @@ JOIN patients AS b ON a.nur_id = b.nur_id
 GROUP BY a.nur_id
 ORDER BY '환자수' DESC
 LIMIT 1;
+
+
+CONCAT('19', SUBSTRING 문자열 합치기
