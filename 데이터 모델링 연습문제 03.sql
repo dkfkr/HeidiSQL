@@ -100,7 +100,16 @@ JOIN users AS b
 ON a.userId = b.userId
 JOIN products AS c
 ON a.prodNo = c.prodNo
-WHERE c.prodStock > 2; 
+WHERE c.prodStock >= 2; 
+
+#강사님 코드
+SELECT*
+FROM charts AS a
+JOIN users AS b
+ON a.userId = b.userId
+JOIN products AS c
+ON a.prodNo = c.prodNo
+WHERE a.cartProdCount >=2
 
 #문제 2 모든 상품내역에서 상품번호 상품카테고리명 상품명 상품가격 판매자이름 판매자 연락처를 조회하시오
 SELECT 
@@ -116,6 +125,21 @@ ON a.sellerNo = b.sellerNo
 JOIN categories AS c
 ON a.cateNo = c.cateNo;
 
+#강사님 코드
+SELECT 
+a.prodNo,
+b.cateName,
+a.prodName,
+a.prodPrice,
+c.sellerManager,
+c.sellerPhone
+FROM products AS a
+JOIN categories AS b
+ON a.cateNo = b.cateNo
+JOIN sellers AS c
+ON c.sellerNo = a.sellerNo
+
+
 #문제 3 모든 고객의 아이디 이름 휴대폰 현재 포인트 적립포인트 합을 조회하시오 단 적립포인트 없으면 0출력
 SELECT
 a.userId,
@@ -124,6 +148,19 @@ SUM(b.point) + SUM(b.pointDesc) AS totalPoints
 FROM users AS a
 JOIN points AS b ON a.userId = b.userId
 GROUP BY a.userId, a.userName;
+
+#강사님 코드
+SELECT 
+a.userId,
+a.userName,
+a.UserHp,
+a.userPoint,
+if (SUM (b.`point`) IS NULL, 0 , SUM(b.`point`)) AS '적립 포인트 총합'
+FROM users AS a
+LEFT JOIN points AS b
+ON a.userId = b.userId
+GROUP BY a.userId;
+
 
 #문제 4
 SELECT 
@@ -135,10 +172,9 @@ a.orderDate
 FROM orders AS a
 JOIN users AS b
 ON a.userId = b.userId
-GROUP BY 
-a.orderNo, b.userId
+WHERE a.orderTotalPrice >= 100000
 ORDER BY 
-a.orderTotalPrice >= 100000 DESC;
+a.orderTotalPrice DESC , b.userId ASC;
 
 #문제 5
 SELECT 
@@ -148,19 +184,29 @@ b.userName AS 사용자이름,
 GROUP_CONCAT(d.prodName SEPARATOR ',') AS 상품목록,
 a.orderDate AS 주문일자
 FROM orders AS a
-JOIN users AS b
-    ON a.userId = b.userId
-JOIN orderitems AS c
-    ON a.orderNo = c.orderNo
-JOIN products AS d 
-    ON c.prodNo = d.prodNo
+JOIN users AS b ON a.userId = b.userId
+JOIN orderitems AS c ON a.orderNo = c.orderNo
+JOIN products AS d ON c.prodNo = d.prodNo
+GROUP BY a.orderNo, b.userId, b.userName, a.orderDate;
+
+#강사님 코드
+SELECT 
+DISTINCT a.orderNo AS 주문번호,
+c.userId AS 사용자ID,
+c.userName AS 사용자이름,
+GROUP_CONCAT(d.prodName SEPARATOR ',') AS 상품목록,
+a.orderDate AS 주문일자
+FROM orders AS a
+JOIN orderitems AS b ON a.orderNo = b.orderNo
+JOIN users AS c ON a.userId = c.userId
+JOIN products AS d ON b.prodNo = d.prodNo
 GROUP BY a.orderNo, b.userId, b.userName, a.orderDate;
 
 #문제 6
 SELECT
 a.prodNo,
 a.prodName,
-a.prodPrice,
+FLOOR (a.prodPrice * (1 - a.prodDiscount /100)) AS '할인가' ,
 a.prodDiscount,
 c.orderTotalPrice
 FROM products AS a
@@ -179,7 +225,7 @@ b.sellerManager
 FROM products AS a
 JOIN sellers AS b
 ON a.sellerNo = b.sellerNo
-WHERE b.sellerManager = '고소영'
+WHERE b.sellerManager = '고소영';
 
 #문제 8
 SELECT
@@ -190,16 +236,42 @@ a.sellerPhone
 FROM sellers AS a
 LEFT JOIN products AS b
 ON a.sellerNo = b.sellerNo
-WHERE b.sellerNo IS NULL;
+WHERE b.prodNo IS NULL;
 
 #문제 9
-SELECT
-a.orderNo AS '주문번호',
-(a.itemPrice * a.itemCount * 1 - a.itemDiscount) AS "최종합"
-FROM orderitems AS a
-JOIN products AS b
-ON a.prodNo = b.prodNo
-GROUP BY a.prodNo, a.orderNo, a.itemPrice ,a.itemCount, a.itemDiscount
-ORDER BY "최종합" DESC , a.orderNo;
+SELECT prodNo AS '주문번호', 
+SUM(prodPrice * prodSold * prodDiscount/100) AS 총합
+FROM products 
+GROUP BY prodNo
+HAVING 총합 >= 100000
+ORDER BY 총합 DESC;
 
+#강사님 답
+SELECT 
+orderNo,
+SUM(`할인가`) AS `주문별 총합`
+FROM
+(SELECT 
+*,
+FLOOR (itemPrice * (1 - itemDiscount /100) * itemCount) AS `할인가`
+FROM orderitems) AS a
+GROUP BY orderNo
+HAVING `주문별 총합` >= 100000
+ORDER BY `주문별 총합` DESC; 
 
+SELECT 
+orderNo,
+SUM(FLOOR (itemPrice * (1 - itemDiscount /100) * itemCount)) AS `주문별 총합`
+FROM orderitems
+GROUP BY orderNo
+HAVING `주문별 총합` >= 100000
+ORDER BY `주문별 총합` DESC; 
+
+#문제 10 
+SELECT 
+a.orderNo
+FROM orders AS a
+JOIN users AS b ON a.userId = b.userId
+JOIN orderitems AS c ON a.orderNo = c.orderNo
+JOIN products AS d ON d.prodNo = c.prodNo
+WHERE b.userName = '장보고';
