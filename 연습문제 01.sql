@@ -104,10 +104,10 @@ SELECT pk , name , hp, addr FROM customer WHERE NAME LIKE '김%';
 SELECT pk , name , hp, addr FROM customer WHERE name = 2;
 
 #실습 1-17
-SELECT * FROM customer WHERE 'hp' = NULL;
+SELECT * FROM customer WHERE 'hp' IS NULL;
 
 #실습 1-18
-SELECT * FROM customer WHERE 'addr' = NOT NULL;
+SELECT * FROM customer WHERE 'addr' IS NOT NULL;
 
 #실습 1-19
 SELECT * FROM customer ORDER BY rdate DESC;
